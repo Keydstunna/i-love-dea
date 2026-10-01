@@ -53,7 +53,11 @@ h1{font:italic 500 clamp(2rem,7vw,3.6rem)/1.1 'Fraunces',Georgia,serif;margin:0 
 .sig.on{opacity:1}
 #close{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:16px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:20px;cursor:pointer}
 #close:focus-visible{outline:2px solid #fff}
-@media (prefers-reduced-motion:reduce){.stem,.head,.flower,.head svg,.pt,.seal{animation:none}h1,#hint{animation:none;opacity:1}}
+#music{position:fixed;z-index:11;top:calc(14px + env(safe-area-inset-top,0px));left:14px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,92,154,.25);color:#ffd1e3;font-size:20px;cursor:pointer;opacity:.7}
+#music.on{opacity:1;background:#ff5c9a;color:#fff;animation:beat2 1.2s infinite}
+#music:focus-visible{outline:2px solid #fff}
+@keyframes beat2{50%{box-shadow:0 0 0 8px rgba(255,92,154,.25)}}
+@media (prefers-reduced-motion:reduce){#music.on{animation:none}.stem,.head,.flower,.head svg,.pt,.seal{animation:none}h1,#hint{animation:none;opacity:1}}
 </style>
 </head>
 <body>
@@ -61,6 +65,8 @@ h1{font:italic 500 clamp(2rem,7vw,3.6rem)/1.1 'Fraunces',Georgia,serif;margin:0 
 <div class="text"><h1 id="title"></h1><div id="line"></div></div>
 <div id="hint">tap a flower to open a letter 💌</div>
 <div class="garden" id="garden"></div>
+<audio id="song" src="your-universe.mp3" loop preload="auto"></audio>
+<button id="music" aria-label="Play or pause music">♪</button>
 
 <div id="modal" role="dialog" aria-label="Letter">
   <div id="petals"></div>
@@ -83,12 +89,12 @@ const LINES = [
 ];
 // One letter per flower. They repeat if you plant more flowers.
 const LETTERS = [
-  "Dea,\n\nSalamat sa lahat. Sa tawa mo, sa kulit mo, sa pag-intindi mo sa akin. Ikaw ang paborito kong tao.",
-  "Dea,\n\nKapag pagod ako, naiisip lang kita, gumagaan na agad ang araw ko. Ganyan ka kahalaga sa akin.",
-  "Dea,\n\nHindi ako perfect, pero promise, lagi kitang pipiliin. Ngayon, bukas, at sa susunod pang mga araw.",
-  "Dea,\n\nAng ganda mo sa labas, pero mas maganda yung puso mo. Ang swerte ko talaga na ikaw ang kasama ko.",
-  "Dea,\n\nParang pink na bulaklak ka, nagpapasaya ng kahit anong lugar na pupuntahan mo. Sana lagi kang masaya.",
-  "Dea,\n\nKung may isang bagay akong gustong ulitin habambuhay, yun yung oras na kasama kita. I love you."
+  "Dea,\n\nSome people walk into your life and quietly rearrange it. You did that to mine. There was no grand announcement, only a smile, and suddenly everything I thought I knew about happiness had to be rewritten.",
+  "Dea,\n\nOn heavy days, I think of you the way a traveler thinks of home. You are the one place where the noise fades and I can finally breathe. Thank you for being that place for me.",
+  "Dea,\n\nI have learned that love is not only the big moments. It lives in the small ones: your laugh before the joke ends, the way you say my name, a message that arrives right when I need it. I would keep every single one.",
+  "Dea,\n\nIf my life were a book, you would not be a chapter. You would be the thread that runs through every page, the reason the story turned warm. I hope we keep writing it for a very long time.",
+  "Dea,\n\nI am not perfect, but I am faithful. Whatever tomorrow looks like, I will choose you again, on the easy days and the hard ones, without needing a reason.",
+  "Dea,\n\nThey say the universe is vast, but mine is surprisingly small. It fits in the space between your hand and mine. I love you, today and every day after."
 ];
 
 document.getElementById('title').textContent = "For you, " + NAME;
@@ -181,6 +187,7 @@ for(let i=0;i<n;i++) plant((i+.5)*W/n+(Math.random()-.5)*30, 2.4+Math.random()*2
 
 const modal = document.getElementById('modal');
 addEventListener('pointerdown', e => {
+  if(e.target.closest('#music')) return;
   if(modal.classList.contains('show')) return;
   plant(e.clientX, 0); burst(e.clientX, e.clientY);
 });
@@ -212,6 +219,18 @@ function closeLetter(){ token++; modal.classList.remove('show'); petals.innerHTM
 document.getElementById('close').addEventListener('click', closeLetter);
 modal.addEventListener('pointerdown', e => { if(e.target === modal || e.target.classList.contains('stage')) closeLetter(); });
 addEventListener('keydown', e => { if(e.key==='Escape') closeLetter(); });
+
+
+/* ---------- Music ---------- */
+// Put your mp3 in the same folder as index.html and name it your-universe.mp3
+const song = document.getElementById('song'), mbtn = document.getElementById('music');
+let wantMusic = true; song.volume = .75;
+const sync = () => mbtn.classList.toggle('on', !song.paused);
+addEventListener('pointerdown', e => { if(!e.target.closest('#music') && wantMusic && song.paused) song.play().then(sync).catch(()=>{}); });
+mbtn.addEventListener('click', () => {
+  if(song.paused){ wantMusic = true; song.play().then(sync).catch(()=>{}); }
+  else { wantMusic = false; song.pause(); sync(); }
+});
 
 /* ---------- Rotating lines ---------- */
 const line = document.getElementById('line'); let li = 0;
