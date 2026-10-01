@@ -3,137 +3,220 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>For you 🌹</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<title>For Dea 💗</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#1c0f1f;--bg2:#3a1630;--rose:#ff5c8a;--blush:#ffd6e0;--gold:#f6c177;--leaf:#5fa383;
+:root{--bg:#1c0f1f;--bg2:#4a1838;--pink:#ff5c9a;--soft:#ffd1e3;--leaf:#5fa383;
  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;overflow:hidden}
-body{background:radial-gradient(ellipse at 50% 30%,var(--bg2),var(--bg) 70%);color:var(--blush);font-family:'Caveat',cursive;-webkit-tap-highlight-color:transparent;cursor:pointer;user-select:none}
+body{background:radial-gradient(ellipse at 50% 28%,var(--bg2),var(--bg) 72%);color:var(--soft);font-family:'Caveat',cursive;-webkit-tap-highlight-color:transparent;user-select:none}
 canvas{position:fixed;inset:0;width:100%;height:100%}
-.text{position:fixed;left:0;right:0;top:56%;text-align:center;padding:0 24px;pointer-events:none}
-h1{font:italic 500 clamp(2rem,7vw,3.8rem)/1.1 'Fraunces',Georgia,serif;margin:0 0 .5rem;opacity:0;animation:in 2s 1.6s forwards;text-shadow:0 0 24px rgba(255,92,138,.55)}
-#line{font-size:clamp(1.4rem,4.4vw,2rem);min-height:2.6em;color:var(--gold);transition:opacity .9s}
-#hint{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));width:100%;text-align:center;font-size:1.15rem;opacity:0;animation:in 1.5s 5s forwards;color:var(--blush);pointer-events:none}
-.garden{position:fixed;left:0;right:0;bottom:0;height:0;pointer-events:none}
+.text{position:fixed;left:0;right:0;top:55%;text-align:center;padding:0 24px;pointer-events:none;z-index:1}
+h1{font:italic 500 clamp(2rem,7vw,3.6rem)/1.1 'Fraunces',Georgia,serif;margin:0 0 .4rem;opacity:0;animation:in 2s 2s forwards;text-shadow:0 0 26px rgba(255,92,154,.7)}
+#line{font-size:clamp(1.4rem,4.4vw,2rem);min-height:2.6em;color:#ffb3d1;transition:opacity .9s}
+#hint{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));width:100%;text-align:center;font-size:1.2rem;opacity:0;animation:in 1.5s 5s forwards;pointer-events:none;z-index:1}
+.garden{position:fixed;left:0;right:0;bottom:0;height:0;z-index:2;pointer-events:none}
 .flower{position:absolute;bottom:0;width:0;transform-origin:bottom center;animation:sway 5s ease-in-out var(--sd,0s) infinite alternate}
 .stem{position:absolute;bottom:0;left:-1.5px;width:3px;height:var(--h);background:linear-gradient(var(--leaf),#2c5a48);border-radius:2px;transform-origin:bottom;animation:grow 1.8s cubic-bezier(.3,.7,.2,1) var(--d,0s) both}
-.head{position:absolute;bottom:calc(var(--h) - var(--s)/2);left:calc(var(--s)/-2);width:var(--s);height:var(--s);animation:rise 1.8s cubic-bezier(.3,.7,.2,1) var(--d,0s) both;filter:drop-shadow(0 0 10px var(--c))}
+.head{position:absolute;bottom:calc(var(--h) - var(--s)/2);left:calc(var(--s)/-2);width:var(--s);height:var(--s);cursor:pointer;pointer-events:auto;animation:rise 1.8s cubic-bezier(.3,.7,.2,1) var(--d,0s) both;filter:drop-shadow(0 0 10px #ff5c9a)}
 .head svg{width:100%;height:100%;animation:spin 40s linear infinite}
 @keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @keyframes rise{from{transform:translateY(var(--h)) scale(0)}to{transform:translateY(0) scale(1)}}
 @keyframes sway{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes in{to{opacity:1}}
-@media (prefers-reduced-motion:reduce){.stem,.head,.flower,.head svg{animation:none}h1,#hint{animation:none;opacity:1}}
+
+/* letter modal */
+#modal{position:fixed;inset:0;z-index:10;display:none;align-items:center;justify-content:center;background:rgba(28,15,31,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#modal.show{display:flex;animation:in .5s both}
+#petals{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.pt{position:absolute;top:-24px;width:14px;height:18px;border-radius:150% 0 150% 0;background:#ff8fb8;opacity:.85;animation:fall linear infinite}
+@keyframes fall{to{transform:translate(var(--x),110vh) rotate(720deg)}}
+.stage{position:relative;display:flex;align-items:center;justify-content:center;width:100%}
+.env{position:relative;width:min(300px,78vw);height:190px;perspective:900px;transition:opacity .6s,transform .6s}
+.env.gone{opacity:0;transform:scale(.7) translateY(40px);pointer-events:none}
+.env .back{position:absolute;inset:0;background:#e0457f;border-radius:8px}
+.paper{position:absolute;left:7%;right:7%;top:8px;bottom:12px;background:#fff3f7;border-radius:6px;transition:transform 1s .55s}
+.env.open .paper{transform:translateY(-62%)}
+.pocket{position:absolute;inset:0;background:#ff6fa6;border-radius:8px;clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%)}
+.flap{position:absolute;top:0;left:0;width:100%;height:106px;background:#ff8fb8;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s,z-index 0s .3s;z-index:3}
+.env.open .flap{transform:rotateX(180deg);z-index:0}
+.seal{position:absolute;left:50%;top:78px;transform:translateX(-50%);z-index:4;font-size:30px;color:#fff;text-shadow:0 0 12px #ff2e7e;animation:beat 1.1s infinite;transition:opacity .3s}
+.env.open .seal{opacity:0}
+@keyframes beat{50%{transform:translateX(-50%) scale(1.25)}}
+.card{position:absolute;width:min(340px,88vw);max-height:76vh;overflow:auto;padding:26px 24px 22px;border-radius:14px;background:linear-gradient(160deg,#fff7fa,#ffdbe9);color:#7a1f48;box-shadow:0 20px 60px rgba(255,46,126,.35),0 0 0 1px rgba(255,255,255,.4) inset;opacity:0;pointer-events:none}
+.card.show{pointer-events:auto;animation:cardin .9s cubic-bezier(.2,1.3,.3,1) forwards}
+@keyframes cardin{from{opacity:0;transform:scale(.5) rotate(-6deg) translateY(60px)}to{opacity:1;transform:none}}
+#txt{font-size:1.6rem;line-height:1.35;margin:0;white-space:pre-wrap;min-height:6em}
+.sig{text-align:right;font-size:1.7rem;font-weight:600;margin-top:12px;opacity:0;transition:opacity 1s}
+.sig.on{opacity:1}
+#close{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:16px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:20px;cursor:pointer}
+#close:focus-visible{outline:2px solid #fff}
+@media (prefers-reduced-motion:reduce){.stem,.head,.flower,.head svg,.pt,.seal{animation:none}h1,#hint{animation:none;opacity:1}}
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div class="text">
-  <h1 id="title"></h1>
-  <div id="line"></div>
-</div>
-<div id="hint">tap anywhere to plant a flower</div>
+<div class="text"><h1 id="title"></h1><div id="line"></div></div>
+<div id="hint">tap a flower to open a letter 💌</div>
 <div class="garden" id="garden"></div>
+
+<div id="modal" role="dialog" aria-label="Letter">
+  <div id="petals"></div>
+  <div class="stage">
+    <div class="env" id="env"><div class="back"></div><div class="paper"></div><div class="pocket"></div><div class="flap"></div><div class="seal">♥</div></div>
+    <div class="card" id="card"><p id="txt"></p><div class="sig" id="sig"></div></div>
+  </div>
+  <button id="close" aria-label="Close letter">✕</button>
+</div>
 
 <script>
 /* ✏️ EDIT THESE ✏️ */
-const NAME = "my love";
+const NAME = "Dea";
+const FROM = "Kier";
 const LINES = [
-  "You make my ordinary days feel like spring.",
+  "You make every ordinary day feel like spring.",
   "Every little moment with you is my favorite.",
-  "I grow a little more every time you smile.",
   "Thank you for being my safe place.",
   "Still choosing you. Every single day."
 ];
+// One letter per flower. They repeat if you plant more flowers.
+const LETTERS = [
+  "Dea,\n\nSalamat sa lahat. Sa tawa mo, sa kulit mo, sa pag-intindi mo sa akin. Ikaw ang paborito kong tao.",
+  "Dea,\n\nKapag pagod ako, naiisip lang kita, gumagaan na agad ang araw ko. Ganyan ka kahalaga sa akin.",
+  "Dea,\n\nHindi ako perfect, pero promise, lagi kitang pipiliin. Ngayon, bukas, at sa susunod pang mga araw.",
+  "Dea,\n\nAng ganda mo sa labas, pero mas maganda yung puso mo. Ang swerte ko talaga na ikaw ang kasama ko.",
+  "Dea,\n\nParang pink na bulaklak ka, nagpapasaya ng kahit anong lugar na pupuntahan mo. Sana lagi kang masaya.",
+  "Dea,\n\nKung may isang bagay akong gustong ulitin habambuhay, yun yung oras na kasama kita. I love you."
+];
 
 document.getElementById('title').textContent = "For you, " + NAME;
-
-const cv = document.getElementById('c'), cx = cv.getContext('2d');
-let W, H, dpr = Math.min(devicePixelRatio || 1, 2);
 const still = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ---------- Heart canvas ---------- */
+const cv = document.getElementById('c'), cx = cv.getContext('2d');
+let W, H; const dpr = Math.min(devicePixelRatio || 1, 2);
 function resize(){ W = innerWidth; H = innerHeight; cv.width = W*dpr; cv.height = H*dpr; cx.setTransform(dpr,0,0,dpr,0,0); }
 addEventListener('resize', resize); resize();
 
-// Heart shape (classic parametric curve), points in unit space
-function heartPt(t){ return [16*Math.pow(Math.sin(t),3), -(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))]; }
-const P = [];
-const N = innerWidth < 600 ? 650 : 1100;
+function hp(t){ return [16*Math.pow(Math.sin(t),3), -(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))]; }
+const P = [], N = innerWidth < 600 ? 360 : 600;
 for(let i=0;i<N;i++){
-  const [hx,hy] = heartPt(Math.random()*Math.PI*2);
-  const k = Math.random() < .55 ? 1 - Math.random()*.06 : Math.sqrt(Math.random()); // edge vs fill
-  const a = Math.random()*Math.PI*2, r = Math.max(W,H)*(.6+Math.random()*.5);
-  P.push({ hx:hx*k, hy:hy*k, x:W/2+Math.cos(a)*r, y:H/2+Math.sin(a)*r, s:Math.random()*1.8+.7,
-           hue:335+Math.random()*30, p:Math.random()*6.28, d:Math.random()*60|0 });
+  const [x,y] = hp(Math.random()*6.2832), k = 1 + Math.random()*.1;
+  const a = Math.random()*6.2832, r = Math.max(innerWidth,innerHeight)*(.6+Math.random()*.5);
+  P.push({ hx:x*k, hy:y*k, x:innerWidth/2+Math.cos(a)*r, y:innerHeight/2+Math.sin(a)*r, s:Math.random()*1.6+.6, p:Math.random()*6.28, d:Math.random()*60|0 });
 }
-const floaters = [];
-let frame = 0;
+const floaters = []; let frame = 0;
+function burst(x,y){ for(let i=0;i<9;i++) floaters.push({x,y,vx:(Math.random()-.5)*2.4,vy:-1-Math.random()*2.2,s:10+Math.random()*16,a:1}); }
 
-function burst(x, y){
-  for(let i=0;i<9;i++) floaters.push({ x, y, vx:(Math.random()-.5)*2.4, vy:-1-Math.random()*2.2, s:10+Math.random()*16, a:1, g:'♥' });
+function heartPath(ox,oy,sc){
+  cx.beginPath();
+  for(let t=0;t<=6.2832;t+=.04){ const [x,y]=hp(t); cx[t?'lineTo':'moveTo'](ox+x*sc, oy+y*sc); }
+  cx.closePath();
 }
-
 function draw(){
-  frame++;
-  cx.clearRect(0,0,W,H);
-  const scale = Math.min(W*.82, H*.46) / 34;
-  const ox = W/2, oy = H*.3;
-  const beatT = (frame % 100) / 100; // double thump
-  const beat = 1 + .05*Math.exp(-Math.pow((beatT-.08)*14,2)) + .035*Math.exp(-Math.pow((beatT-.28)*14,2));
+  frame++; cx.clearRect(0,0,W,H);
+  const sc = Math.min(W*.8, H*.44)/34, ox = W/2, oy = H*.3;
+  const bt = (frame%100)/100;
+  const beat = 1 + .05*Math.exp(-Math.pow((bt-.08)*14,2)) + .035*Math.exp(-Math.pow((bt-.28)*14,2));
+  const s = sc*beat, alpha = still ? 1 : Math.max(0, Math.min(1,(frame-110)/90));
+
+  if(alpha > 0){
+    cx.save(); cx.globalAlpha = alpha;
+    cx.shadowColor = '#ff2e7e'; cx.shadowBlur = 45;
+    const g = cx.createRadialGradient(ox-5*s, oy-6*s, 1*s, ox, oy+2*s, 20*s);
+    g.addColorStop(0,'#ffb0cf'); g.addColorStop(.45,'#ff5c9a'); g.addColorStop(1,'#b8145f');
+    heartPath(ox,oy,s); cx.fillStyle = g; cx.fill();
+    cx.shadowBlur = 0;
+    cx.save(); heartPath(ox,oy,s); cx.clip();
+    cx.fillStyle = 'rgba(255,255,255,.28)'; cx.beginPath();
+    cx.ellipse(ox-7.5*s, oy-7*s, 3.2*s, 1.7*s, -.7, 0, 6.2832); cx.fill();
+    cx.restore();
+    cx.fillStyle = '#fff'; cx.textAlign = 'center'; cx.textBaseline = 'middle';
+    cx.font = `italic 500 ${Math.round(5.2*s)}px Fraunces, Georgia, serif`;
+    cx.shadowColor = 'rgba(120,0,60,.6)'; cx.shadowBlur = 12;
+    cx.fillText(NAME, ox, oy+1.5*s);
+    cx.restore();
+  }
   cx.globalCompositeOperation = 'lighter';
   for(const p of P){
-    const tx = ox + p.hx*scale*beat + Math.sin(frame*.02+p.p)*1.2;
-    const ty = oy + p.hy*scale*beat + Math.cos(frame*.02+p.p)*1.2;
-    const ease = still ? 1 : (frame > p.d ? .045 : 0);
-    p.x += (tx-p.x)*(still?1:ease); p.y += (ty-p.y)*(still?1:ease);
-    cx.fillStyle = `hsla(${p.hue},95%,${62+Math.sin(frame*.05+p.p)*12}%,.8)`;
-    cx.beginPath(); cx.arc(p.x, p.y, p.s*(.8+beat-1+.2), 0, 6.283); cx.fill();
+    const tx = ox+p.hx*s+Math.sin(frame*.02+p.p)*1.5, ty = oy+p.hy*s+Math.cos(frame*.02+p.p)*1.5;
+    const e = still ? 1 : (frame > p.d ? .045 : 0);
+    p.x += (tx-p.x)*e; p.y += (ty-p.y)*e;
+    cx.fillStyle = `rgba(255,${170+Math.sin(frame*.06+p.p)*50|0},210,.85)`;
+    cx.beginPath(); cx.arc(p.x,p.y,p.s,0,6.2832); cx.fill();
   }
   cx.globalCompositeOperation = 'source-over';
-  if(frame % 38 === 0) floaters.push({ x:Math.random()*W, y:H+10, vx:(Math.random()-.5)*.5, vy:-.7-Math.random()*.9, s:8+Math.random()*14, a:.7, g:'♥' });
+  if(frame%38===0) floaters.push({x:Math.random()*W,y:H+10,vx:(Math.random()-.5)*.5,vy:-.7-Math.random()*.9,s:8+Math.random()*14,a:.7});
   for(let i=floaters.length-1;i>=0;i--){
-    const f = floaters[i]; f.x += f.vx + Math.sin(frame*.03+i)*.3; f.y += f.vy; f.a -= .0035;
-    if(f.a <= 0 || f.y < -20){ floaters.splice(i,1); continue; }
-    cx.globalAlpha = f.a; cx.fillStyle = '#ff7aa2'; cx.font = f.s+'px serif'; cx.fillText(f.g, f.x, f.y);
+    const f = floaters[i]; f.x += f.vx+Math.sin(frame*.03+i)*.3; f.y += f.vy; f.a -= .0035;
+    if(f.a<=0||f.y<-20){ floaters.splice(i,1); continue; }
+    cx.globalAlpha = f.a; cx.fillStyle = '#ff7eb6'; cx.font = f.s+'px serif'; cx.fillText('♥',f.x,f.y);
   }
   cx.globalAlpha = 1;
   requestAnimationFrame(draw);
 }
 draw();
 
-// Flowers
-const COLORS = ['#ff5c8a','#ff8fab','#ffd6e0','#f6c177','#c77dff','#ff9770'];
+/* ---------- Pink flowers ---------- */
+const PINKS = ['#ff5c9a','#ff7eb6','#ff9ec7','#ff4d94','#f78fb3','#ffb3d1'];
 const garden = document.getElementById('garden');
+let count = 0;
 function plant(x, delay){
-  const c = COLORS[Math.random()*COLORS.length|0];
-  const h = 70 + Math.random()*Math.min(150, H*.2), s = 42 + Math.random()*34;
-  let petals = '';
-  for(let i=0;i<8;i++) petals += `<ellipse cx="0" cy="-21" rx="10" ry="22" fill="${c}" opacity=".88" transform="rotate(${i*45})"/>`;
+  const c = PINKS[Math.random()*PINKS.length|0], idx = count++;
+  const h = 60 + Math.random()*Math.min(120, H*.16), s = 44 + Math.random()*32;
+  let outer = '', inner = '';
+  for(let i=0;i<8;i++) outer += `<ellipse cx="0" cy="-22" rx="11" ry="23" fill="${c}" transform="rotate(${i*45})"/>`;
+  for(let i=0;i<8;i++) inner += `<ellipse cx="0" cy="-13" rx="7" ry="14" fill="#ffd9e8" opacity=".75" transform="rotate(${i*45+22})"/>`;
   const f = document.createElement('div');
   f.className = 'flower';
-  f.style.cssText = `left:${x}px;--h:${h}px;--s:${s}px;--c:${c};--d:${delay}s;--sd:${-Math.random()*4}s`;
-  f.innerHTML = `<div class="stem"></div><div class="head"><svg viewBox="-50 -50 100 100">${petals}<circle r="9" fill="#f6c177"/><circle r="4" fill="#c9852e"/></svg></div>`;
+  f.style.cssText = `left:${x}px;--h:${h}px;--s:${s}px;--d:${delay}s;--sd:${-Math.random()*4}s`;
+  f.innerHTML = `<div class="stem"></div><div class="head"><svg viewBox="-50 -50 100 100">${outer}${inner}<circle r="6" fill="#fff0f6"/><circle r="2.5" fill="#ff8fb8"/></svg></div>`;
+  f.querySelector('.head').addEventListener('pointerdown', e => { e.stopPropagation(); openLetter(idx); });
   garden.appendChild(f);
-  if(garden.children.length > 60) garden.firstChild.remove();
 }
-const count = Math.round(W/70);
-for(let i=0;i<count;i++) plant((i+.5)*W/count + (Math.random()-.5)*30, 2.2 + Math.random()*2.6);
+const n = Math.max(5, Math.round(W/80));
+for(let i=0;i<n;i++) plant((i+.5)*W/n+(Math.random()-.5)*30, 2.4+Math.random()*2.4);
 
+const modal = document.getElementById('modal');
 addEventListener('pointerdown', e => {
-  plant(e.clientX, 0);
-  burst(e.clientX, e.clientY);
+  if(modal.classList.contains('show')) return;
+  plant(e.clientX, 0); burst(e.clientX, e.clientY);
 });
 
-// Rotating messages
-const line = document.getElementById('line');
-let li = 0;
-function nextLine(){
-  line.style.opacity = 0;
-  setTimeout(() => { line.textContent = LINES[li++ % LINES.length]; line.style.opacity = 1; }, 900);
+/* ---------- Letter ---------- */
+const env = document.getElementById('env'), card = document.getElementById('card'),
+      txt = document.getElementById('txt'), sig = document.getElementById('sig'), petals = document.getElementById('petals');
+let token = 0;
+function openLetter(i){
+  const my = ++token, body = LETTERS[i % LETTERS.length];
+  modal.classList.add('show');
+  env.className = 'env'; card.className = 'card'; txt.textContent = ''; sig.className = 'sig'; sig.textContent = '— ' + FROM;
+  petals.innerHTML = '';
+  for(let k=0;k<22;k++){
+    const p = document.createElement('i'); p.className = 'pt';
+    p.style.cssText = `left:${Math.random()*100}%;--x:${(Math.random()-.5)*160}px;animation-duration:${5+Math.random()*5}s;animation-delay:${-Math.random()*8}s;background:${PINKS[k%PINKS.length]}`;
+    petals.appendChild(p);
+  }
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  (async () => {
+    await wait(still ? 0 : 500); if(my!==token) return; env.classList.add('open');
+    await wait(still ? 0 : 1900); if(my!==token) return; env.classList.add('gone'); card.classList.add('show');
+    await wait(still ? 0 : 700);
+    for(let k=1;k<=body.length;k++){ if(my!==token) return; txt.textContent = body.slice(0,k); if(!still) await wait(body[k-1]==='\n'?250:32); }
+    sig.classList.add('on');
+  })();
 }
-setTimeout(() => { nextLine(); setInterval(nextLine, 5200); }, 3000);
+function closeLetter(){ token++; modal.classList.remove('show'); petals.innerHTML = ''; }
+document.getElementById('close').addEventListener('click', closeLetter);
+modal.addEventListener('pointerdown', e => { if(e.target === modal || e.target.classList.contains('stage')) closeLetter(); });
+addEventListener('keydown', e => { if(e.key==='Escape') closeLetter(); });
+
+/* ---------- Rotating lines ---------- */
+const line = document.getElementById('line'); let li = 0;
+function nextLine(){ line.style.opacity = 0; setTimeout(() => { line.textContent = LINES[li++ % LINES.length]; line.style.opacity = 1; }, 900); }
+setTimeout(() => { nextLine(); setInterval(nextLine, 5200); }, 3200);
 </script>
 </body>
 </html>
