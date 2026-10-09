@@ -5,8 +5,8 @@ import { MET, NAME } from '../data'
 import { useFx, usePlayer } from '../ctx'
 
 const PINKS = ['#e8708f', '#f6b4c5', '#fff0e6', '#f08aa6', '#ffd6df']
-const FLORA = Array.from({ length: 14 }, (_, i) => ({
-  tulip: i % 2 === 1, c: PINKS[i % 5], x: (i * 7.3 + 3) % 96, s: 34 + (i % 4) * 12, dur: 16 + (i % 5) * 4, delay: -i * 2.3,
+const FLORA = Array.from({ length: 5 }, (_, i) => ({
+  tulip: i % 2 === 1, c: PINKS[i], x: [6, 27, 50, 74, 92][i], s: 26 + (i % 3) * 8, dur: 38 + i * 6, delay: -i * 9,
 }))
 
 function Flora() {

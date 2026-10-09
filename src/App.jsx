@@ -9,10 +9,9 @@ import Photos from './pages/Photos'
 import Letters from './pages/Letters'
 import Reasons from './pages/Reasons'
 import Bakit from './pages/Bakit'
-import Birthday from './pages/Birthday'
 import Secret from './pages/Secret'
 
-const ROUTES = { home: Home, story: Story, songs: Songs, photos: Photos, letters: Letters, reasons: Reasons, bakit: Bakit, birthday: Birthday, secret: Secret }
+const ROUTES = { home: Home, story: Story, songs: Songs, photos: Photos, letters: Letters, reasons: Reasons, bakit: Bakit, secret: Secret }
 
 // Sakura petals that fall on every page
 const Petals = () => (
@@ -25,12 +24,15 @@ const Petals = () => (
   </div>
 )
 
-function MiniPlayer({ go }) {
+// Small music control that lives in the top bar
+function HeaderMusic({ go }) {
   const p = usePlayer()
   return (
-    <div className="mini">
-      <button onClick={p.toggle} aria-label="Play or pause music"><Ic n={p.on ? 'pause' : 'play'} s={20} /></button>
-      <button className="mt" onClick={() => go('songs')}><b>{p.song.t}</b><small>{p.song.a}</small></button>
+    <div className="music">
+      <button className={`mbtn ${p.on ? 'on' : ''}`} onClick={p.toggle} aria-label={p.on ? 'Pause music' : 'Play music'}>
+        <Ic n={p.on ? 'pause' : 'play'} s={18} />
+      </button>
+      <button className="mtitle" onClick={() => go('songs')}><b>{p.song.t}</b><small>{p.song.a}</small></button>
     </div>
   )
 }
@@ -75,7 +77,10 @@ function Shell() {
       <Petals />
       <header className="top">
         <button className="brand" onClick={() => go('home')}><Hanko k="愛" s={34} /><span>Dea</span></button>
-        <button className="burger" onClick={() => setMenu(!menu)} aria-label="Menu" aria-expanded={menu}><Ic n={menu ? 'close' : 'menu'} /></button>
+        <div className="right">
+          <HeaderMusic go={go} />
+          <button className="burger" onClick={() => setMenu(!menu)} aria-label="Menu" aria-expanded={menu}><Ic n={menu ? 'close' : 'menu'} /></button>
+        </div>
       </header>
       <nav className={`menu ${menu ? 'on' : ''}`} aria-label="Pages">
         <div>
@@ -86,7 +91,6 @@ function Shell() {
       </nav>
       <Page key={route} go={go} />
       {route !== 'secret' && <Footer go={go} />}
-      <MiniPlayer go={go} />
       <div className={`shoji ${shut ? 'on' : ''}`} aria-hidden="true"><i /><i /></div>
     </div>
   )

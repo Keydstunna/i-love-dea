@@ -6,7 +6,7 @@ export const A = (p) => (import.meta.env?.BASE_URL ?? './') + p
 
 export const PAGES = [
   ['home', '家', 'Home'], ['story', '物語', 'Our Story'], ['songs', '歌', 'Songs'], ['photos', '写真', 'Photos'],
-  ['letters', '手紙', 'Open When'], ['reasons', '理由', 'Reasons'], ['bakit', '想い', 'Bakit Ako?'], ['birthday', '祝', 'Birthday'],
+  ['letters', '手紙', 'Open When'], ['reasons', '理由', 'Reasons'], ['bakit', '想い', 'Bakit Ako?'],
 ]
 
 export const SONGS = [
@@ -70,11 +70,3 @@ export const WHY = [
   "I may not have everything yet, but I can give you my time, loyalty, effort, patience, and love. Hindi ako marunong magmahal nang halfway.",
 ]
 export const WHY_END = "Someday, I want to say, 'Baby, ako na bahala.'"
-
-export const PSALM = ['Delight thyself also in the LORD; and he shall give thee the desires of thine heart.', 'Psalm 37:4 (KJV)']
-export const BDAY = [
-  'Happy birthday, Dea.',
-  "Today is about you: the quiet nights, the stories you love, and the way you care for people without making noise about it.",
-  'I may not have everything yet, but my time, my loyalty, and my effort all have your name on them.',
-  'Whatever this new year brings, I pray it gives you peace, rest, and everything your heart is hoping for.',
-]
