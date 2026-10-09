@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FxProvider, PlayerProvider, useFx, usePlayer } from './ctx'
-import { Sakura, Hanko, Ic, Heart, Car, Brick } from './art'
+import { Sakura, Hanko, Ic, Heart } from './art'
+import Scene from './Scene'
 import { PAGES } from './data'
 import Home from './pages/Home'
 import Story from './pages/Story'
@@ -9,9 +10,10 @@ import Photos from './pages/Photos'
 import Letters from './pages/Letters'
 import Reasons from './pages/Reasons'
 import Bakit from './pages/Bakit'
+import MyPromise from './pages/MyPromise'
 import Secret from './pages/Secret'
 
-const ROUTES = { home: Home, story: Story, songs: Songs, photos: Photos, letters: Letters, reasons: Reasons, bakit: Bakit, secret: Secret }
+const ROUTES = { home: Home, story: Story, songs: Songs, photos: Photos, letters: Letters, reasons: Reasons, bakit: Bakit, promise: MyPromise, secret: Secret }
 
 // Sakura petals that fall on every page
 const Petals = () => (
@@ -38,14 +40,8 @@ function HeaderMusic({ go }) {
 }
 
 function Footer({ go }) {
-  const [zoom, setZoom] = useState(false)
   return (
     <footer className="foot">
-      <div className="toys">
-        <Brick />
-        <button className={`car ${zoom ? 'zoom' : ''}`} aria-label="Hot Wheels car"
-          onClick={() => { setZoom(true); setTimeout(() => setZoom(false), 2200) }}><Car /></button>
-      </div>
       <p>made with love · 愛を込めて</p>
       <button className="secret" onClick={() => go('secret')} aria-label="A secret"><Heart s={20} /></button>
     </footer>
@@ -58,6 +54,18 @@ function Shell() {
   const [shut, setShut] = useState(false)
   const [menu, setMenu] = useState(false)
   const { burst } = useFx()
+
+  // Parallax: scroll and mouse position feed CSS variables that every scene layer reads.
+  useEffect(() => {
+    const r = document.documentElement
+    let raf = 0
+    const sc = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => r.style.setProperty('--sy', Math.min(window.scrollY, 700))) }
+    const mv = (e) => r.style.setProperty('--mx', ((e.clientX / window.innerWidth - 0.5) * 2).toFixed(3))
+    window.addEventListener('scroll', sc, { passive: true })
+    window.addEventListener('pointermove', mv, { passive: true })
+    sc()
+    return () => { window.removeEventListener('scroll', sc); window.removeEventListener('pointermove', mv); cancelAnimationFrame(raf) }
+  }, [])
 
   // The shoji doors close, the page changes, the doors open.
   const go = (id) => {
@@ -73,7 +81,8 @@ function Shell() {
   }
   const Page = ROUTES[route]
   return (
-    <div onPointerDown={(e) => burst(e.clientX, e.clientY, 5)}>
+    <div data-route={route} onPointerDown={(e) => burst(e.clientX, e.clientY, 5)}>
+      <Scene />
       <Petals />
       <header className="top">
         <button className="brand" onClick={() => go('home')}><Hanko k="愛" s={34} /><span>Dea</span></button>

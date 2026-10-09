@@ -17,7 +17,7 @@ export default function Bakit({ go }) {
         ))}
         {s >= WHY.length && <p className="end">{WHY_END}</p>}
       </div>
-      <Next go={go} to="home" />
+      <Next go={go} to="promise" />
     </main>
   )
 }

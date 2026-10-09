@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Rv } from '../ui'
-import { Rose, Tulip, Torii, Wave } from '../art'
+import { Rose, Tulip } from '../art'
 import { MET, NAME } from '../data'
 import { useFx, usePlayer } from '../ctx'
 
@@ -42,7 +42,6 @@ export default function Home({ go }) {
   const pl = usePlayer()
   return (
     <main className="page home">
-      <div className="sun" aria-hidden="true" />
       <Flora />
       <Rv className="kanji">出会い · deai</Rv>
       <Rv as="h1" d={0.1}>I fell in love with you on <em>May 18, 2024, 3:40 PM.</em></Rv>
@@ -53,8 +52,10 @@ export default function Home({ go }) {
           Start our story →
         </button>
       </Rv>
-      <Rv d={0.5} className="gate"><Torii /></Rv>
-      <Wave />
+      <Rv className="hanami">
+        <span className="vert" aria-hidden="true">桜の下で</span>
+        <p>Under the sakura, every ordinary day with you feels like spring.</p>
+      </Rv>
     </main>
   )
 }

@@ -61,8 +61,8 @@ export function PlayerProvider({ children }) {
   return (
     <PC.Provider value={{ i, on, t, d, song: SONGS[i], play, toggle, next: () => step(1), prev: () => step(-1), seek }}>
       {children}
-      <audio ref={a} preload="none" onPlay={() => setOn(true)} onPause={() => setOn(false)}
-        onTimeUpdate={(e) => setT(e.target.currentTime)} onLoadedMetadata={(e) => setD(e.target.duration)} onEnded={() => step(1)} />
+      <audio ref={a} preload="none" loop onPlay={() => setOn(true)} onPause={() => setOn(false)}
+        onTimeUpdate={(e) => setT(e.target.currentTime)} onLoadedMetadata={(e) => setD(e.target.duration)} />
     </PC.Provider>
   )
 }

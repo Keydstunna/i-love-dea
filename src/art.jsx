@@ -29,29 +29,6 @@ export const Heart = ({ s = 22, c = '#e0607e' }) => (
     <path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" />
   </svg>
 )
-export const Torii = ({ s = 170, c = '#e0607e' }) => (
-  <svg viewBox="0 0 120 100" width={s} fill={c} aria-hidden="true">
-    <path d="M4 18Q60 6 116 18L112 28Q60 18 8 28Z" />
-    <rect x="16" y="32" width="88" height="7" rx="2" />
-    <rect x="24" y="28" width="9" height="70" />
-    <rect x="87" y="28" width="9" height="70" />
-    <rect x="55" y="22" width="10" height="14" />
-  </svg>
-)
-export const Wave = ({ h = 80 }) => (
-  <svg className="wave" width="100%" height={h} aria-hidden="true">
-    <defs>
-      <pattern id="sg" width="44" height="22" patternUnits="userSpaceOnUse">
-        <g fill="none" stroke="#f0a1b6" strokeWidth="1.3">
-          {[18, 12, 6].map((r) => (
-            <g key={r}><circle cx="22" cy="22" r={r} /><circle cx="0" cy="11" r={r} /><circle cx="44" cy="11" r={r} /></g>
-          ))}
-        </g>
-      </pattern>
-    </defs>
-    <rect width="100%" height="100%" fill="url(#sg)" />
-  </svg>
-)
 export const Hanko = ({ k = '愛', s = 44 }) => (
   <span className="hanko" style={{ width: s, height: s, fontSize: s * 0.58 }}>{k}</span>
 )
@@ -62,25 +39,6 @@ export const Env = ({ k }) => (
     <path className="flap" d="M6 20l74 52 74-52z" fill="#f9c9d6" stroke="#e0607e" strokeWidth="2" strokeLinejoin="round" />
     <circle cx="80" cy="66" r="15" fill="#e0607e" />
     <text x="80" y="73" textAnchor="middle" fontSize="19" fill="#fff7ef" fontFamily="Shippori Mincho, serif">{k}</text>
-  </svg>
-)
-export const Car = ({ s = 90 }) => (
-  <svg viewBox="0 0 120 50" width={s} aria-hidden="true">
-    <path d="M6 36c0-6 4-9 12-10l14-12c3-3 8-4 14-4h22c8 0 14 3 20 10l12 5c6 2 10 5 10 11v4H6z" fill="#e0607e" />
-    <path d="M38 16h20l8 12H30z" fill="#ffeaf0" />
-    <path d="M70 18h8l8 8H72z" fill="#ffeaf0" />
-    <circle cx="32" cy="40" r="9" fill="#4a2535" /><circle cx="92" cy="40" r="9" fill="#4a2535" />
-    <circle cx="32" cy="40" r="4" fill="#f6b4c5" /><circle cx="92" cy="40" r="4" fill="#f6b4c5" />
-  </svg>
-)
-export const Brick = ({ s = 64 }) => (
-  <svg viewBox="0 0 80 70" width={s} aria-hidden="true">
-    {[['#f6b4c5', 46], ['#fff0e6', 25], ['#e0607e', 4]].map(([c, y], k) => (
-      <g key={k} transform={`translate(${k % 2 ? 12 : 0} ${y})`}>
-        <rect y="7" width="60" height="18" rx="2" fill={c} stroke="#4a253533" />
-        {[6, 24, 42].map((x) => <rect key={x} x={x} y="2" width="12" height="6" rx="2" fill={c} stroke="#4a253533" />)}
-      </g>
-    ))}
   </svg>
 )
 const IC = {
@@ -94,5 +52,72 @@ export const Ic = ({ n, s = 22 }) => <svg viewBox="0 0 24 24" width={s} height={
 export const Eq = ({ on }) => (
   <svg className={`eq ${on ? 'on' : ''}`} viewBox="0 0 44 24" width="44" height="24" aria-hidden="true">
     {[0, 1, 2, 3, 4].map((k) => <rect key={k} x={k * 9 + 1} y="3" width="5" height="18" rx="2.5" style={{ animationDelay: k * 0.13 + 's' }} />)}
+  </svg>
+)
+
+// ---------- Japanese scene (used by Scene.jsx) ----------
+const rnd = (seed) => { let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647 }
+const BL = ['#f6b4c5', '#f9c9d6', '#ffd9e3', '#f08aa6', '#fbd5de']
+const SPOTS = [[100, 256], [108, 206], [152, 180], [214, 190], [290, 168], [330, 200], [330, 250], [150, 236], [262, 232], [200, 146], [246, 116], [120, 140], [312, 140], [60, 230], [360, 170]]
+export const SakuraTree = ({ seed = 7 }) => {
+  const r = rnd(seed)
+  const dots = SPOTS.flatMap(([x, y]) => Array.from({ length: 7 }, () => ({
+    x: x + (r() - 0.5) * 70, y: y + (r() - 0.5) * 60, r: 14 + r() * 14, c: BL[(r() * 5) | 0], o: 0.55 + r() * 0.4,
+  })))
+  return (
+    <svg viewBox="0 0 420 560" overflow="visible" aria-hidden="true">
+      <path d="M178 700C186 560 186 440 192 360L226 360C228 440 228 560 244 700Z" fill="#8a5560" />
+      <g fill="none" stroke="#8a5560" strokeLinecap="round">
+        <path d="M204 380C190 330 150 296 100 256" strokeWidth="16" />
+        <path d="M214 372C228 322 270 290 330 250" strokeWidth="14" />
+        <path d="M198 340C196 290 200 240 214 190" strokeWidth="10" />
+        <path d="M150 290C128 270 112 240 108 206" strokeWidth="7" />
+        <path d="M274 296C296 270 320 236 330 200" strokeWidth="7" />
+        <path d="M205 262C180 240 160 214 152 180" strokeWidth="6" />
+        <path d="M206 250C240 224 266 196 290 168" strokeWidth="6" />
+      </g>
+      {dots.map((d, i) => <circle key={i} cx={d.x} cy={d.y} r={d.r} fill={d.c} opacity={d.o} />)}
+      {dots.filter((_, i) => i % 5 === 0).map((d, i) => <circle key={'h' + i} cx={d.x - 4} cy={d.y - 4} r="3" fill="#fff" opacity=".7" />)}
+    </svg>
+  )
+}
+export const Fuji = () => (
+  <svg viewBox="0 0 600 220" width="100%" aria-hidden="true">
+    <defs><linearGradient id="fj" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f6b4c5" /><stop offset="1" stopColor="#fde6ea" /></linearGradient></defs>
+    <path d="M0 220L205 44Q300 6 395 44L600 220Z" fill="url(#fj)" />
+    <path d="M205 44Q300 6 395 44L362 62L332 46L303 74L272 48L240 66Z" fill="#fff" opacity=".9" />
+  </svg>
+)
+export const SunDisc = () => (
+  <svg viewBox="0 0 400 400" aria-hidden="true">
+    <defs><radialGradient id="sd"><stop offset="0" stopColor="#ffc3d2" /><stop offset=".6" stopColor="#ffdbe3" /><stop offset="1" stopColor="#ffdbe3" stopOpacity="0" /></radialGradient></defs>
+    <circle cx="200" cy="200" r="200" fill="url(#sd)" />
+  </svg>
+)
+export const Cloud = ({ s = 180 }) => (
+  <svg viewBox="0 0 200 70" width={s} aria-hidden="true">
+    <g fill="#fff" opacity=".9"><circle cx="50" cy="44" r="22" /><circle cx="85" cy="34" r="28" /><circle cx="125" cy="42" r="24" /><circle cx="155" cy="48" r="16" /><rect x="40" y="44" width="125" height="20" rx="10" /></g>
+    <path d="M62 50c8-6 16-6 20 0M110 52c8-6 16-6 20 0" stroke="#f0a1b6" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+  </svg>
+)
+export const Lantern = ({ s = 60 }) => (
+  <svg viewBox="0 0 60 112" width={s} aria-hidden="true">
+    <path d="M30 0v14" stroke="#a8325a" strokeWidth="2" />
+    <rect x="18" y="12" width="24" height="6" rx="2" fill="#4a2535" />
+    <ellipse cx="30" cy="48" rx="24" ry="32" fill="#f08aa6" />
+    <path d="M30 16v64M16 26c6 14 6 38 0 52M44 26c-6 14-6 38 0 52" stroke="#fff" strokeOpacity=".4" fill="none" />
+    <rect x="18" y="78" width="24" height="6" rx="2" fill="#4a2535" />
+    <path d="M30 84v20M24 84l-3 16M36 84l3 16" stroke="#e0607e" strokeWidth="2" strokeLinecap="round" />
+    <text x="30" y="55" textAnchor="middle" fontSize="20" fill="#fff7ef" fontFamily="Shippori Mincho, serif">愛</text>
+  </svg>
+)
+export const Crane = ({ s = 64 }) => (
+  <svg viewBox="0 0 80 60" width={s} aria-hidden="true">
+    <path d="M30 34L24 10L44 31Z" fill="#f9c9d6" stroke="#e98fa8" strokeWidth=".8" />
+    <path d="M18 36L50 30L66 40L34 46Z" fill="#fff" stroke="#e98fa8" strokeWidth=".8" />
+    <path d="M34 33L52 6L56 31Z" fill="#ffd9e3" stroke="#e98fa8" strokeWidth=".8" />
+    <path d="M18 36L6 22L10 20L22 33Z" fill="#fff" stroke="#e98fa8" strokeWidth=".8" />
+    <path d="M6 22L1 23L10 20Z" fill="#e0607e" />
+    <path d="M66 40L77 36L62 35Z" fill="#fff" stroke="#e98fa8" strokeWidth=".8" />
   </svg>
 )

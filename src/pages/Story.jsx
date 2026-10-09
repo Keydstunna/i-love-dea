@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Rv } from '../ui'
 import { Ic } from '../art'
-import { CHAPTERS } from '../data'
+import { CHAPTERS, FROM } from '../data'
 import { useFx } from '../ctx'
 
 export default function Story({ go }) {
@@ -33,7 +33,7 @@ export default function Story({ go }) {
             </div>
           </header>
           <p className="line">{ch.q}</p>
-          <p className="an">A/N: {ch.an}</p>
+          <p className="an"><b>{FROM}:</b> {ch.an}</p>
           <footer>
             <button className={`vote ${voted[c] ? 'on' : ''}`}
               onClick={(e) => { setVoted({ ...voted, [c]: !voted[c] }); if (!voted[c]) burst(e.clientX, e.clientY, 10) }}>
