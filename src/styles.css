@@ -1,6 +1,11 @@
 :root{--cream:#fff7ef;--sak:#f6b4c5;--rose:#e0607e;--deep:#a8325a;--ink:#4a2535;--line:rgba(224,96,126,.28);
 --ease:cubic-bezier(.22,.8,.2,1);--t:.9s;--serif:'Shippori Mincho','Noto Serif JP',serif;--body:'Cormorant Garamond',Georgia,serif}
 *{box-sizing:border-box;margin:0}
+/* no text selection, no blue highlight, no long-press menu */
+*{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+::selection{background:transparent}
+html{touch-action:manipulation}
+img,svg{-webkit-user-drag:none;user-drag:none}
 html{scroll-behavior:smooth}
 body{background:radial-gradient(circle at 12% 0,#ffdfe7,transparent 45%),radial-gradient(circle at 95% 28%,#fff0d6,transparent 40%),var(--cream);background-attachment:fixed;color:var(--ink);font:500 clamp(1.1rem,2.4vw,1.28rem)/1.65 var(--body);overflow-x:hidden}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
