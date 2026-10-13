@@ -56,7 +56,7 @@ export const REASONS = [
   "Because you're honest, respectful, and loyal to the people who matter.",
   'Because you love quiet nights, movies, and Wattpad, and I love being part of your quiet.',
   'Because I love every version of you: the happy one, the tired one, the quiet one, even the overthinker.',
-  "Because you remind me I'm enough, even when I can't believe it myself.",
+  "You make distance feel smaller by finding ways to make me feel close to you, even when we're apart.",
   "Because loving you is the most natural thing I've ever done.",
   'Because my favorite future is the one with you in it.',
 ]
