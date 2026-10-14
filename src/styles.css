@@ -1,4 +1,4 @@
-:root{--cream:#fff7ef;--sak:#f6b4c5;--rose:#e0607e;--deep:#a8325a;--ink:#4a2535;--line:rgba(224,96,126,.28);
+:root{--cream:#fff7ef;--sak:#f6b4c5;--rose:#e76a87;--deep:#a8325a;--ink:#4a2535;--line:rgba(224,96,126,.28);
 --ease:cubic-bezier(.22,.8,.2,1);--t:.9s;--serif:'Shippori Mincho','Noto Serif JP',serif;--body:'Cormorant Garamond',Georgia,serif}
 *{box-sizing:border-box;margin:0}
 /* no text selection, no blue highlight, no long-press menu */
