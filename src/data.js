@@ -62,7 +62,7 @@ export const REASONS = [
 ]
 
 export const DOING = [
-  ['聞', 'I listen', 'Evn to the things you struggle to say.'],
+  ['聞', 'I listen', 'Even to the things you struggle to say.'],
   ['覚', 'I remember', 'The small things you mention in passing.'],
   ['時', 'I make time', 'Kahit busy, ikaw pa rin ang priority.'],
   ['祈', 'I pray for you', 'For your peace, your rest, and your dreams.'],
