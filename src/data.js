@@ -69,7 +69,7 @@ export const DOING = [
   ['守', 'I stay', 'On the good days and the heavy days.'],
 ]
 export const COMPLIMENTS = [
-  'You make ordinary days feel soft, hehe.', 'Ang ganda ng tawa mo, ako yung nauuna sa saya.', 'You are gentle, and that is a strength.',
+  'You make ordinary days feel soft.', 'Ang ganda ng tawa mo, ako yung nauuna sa saya.', 'You are gentle, and that is a strength.',
   'Your kindness is quiet but I always notice it.', 'Ikaw yung klase ng tao na gusto kong ipagmalaki.', 'You are brave in ways you do not even see.',
   'Your overthinking is just you caring too much, and I love that about you.', 'You look beautiful today. Actually, always.',
 ]
