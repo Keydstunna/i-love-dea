@@ -18,7 +18,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.25}
 .rv{opacity:0;transform:translateY(28px);filter:blur(6px);transition:opacity var(--t) var(--ease),transform var(--t) var(--ease),filter var(--t) var(--ease)}
 .rv.in{opacity:1;transform:none;filter:none}
 .btn{background:linear-gradient(135deg,#f08aa6,var(--rose));color:#fff;padding:14px 30px;border-radius:99px;font:700 1rem var(--serif);letter-spacing:.06em;box-shadow:0 10px 26px rgba(224,96,126,.35);transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
-.btn:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(223, 104, 131, 0.45)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(220, 100, 128, 0.45)}
 .btn.ghost{background:#fff9f4;color:var(--deep);border:1px solid var(--rose);box-shadow:none}
 .card{background:#fffdf9;border:1px solid var(--line);border-radius:8px;padding:22px;box-shadow:0 0 0 5px var(--cream),0 0 0 6px var(--line);text-align:center}
 h2{text-align:center;font-size:clamp(2rem,6.4vw,3.2rem);color:var(--deep)}
